@@ -43,23 +43,23 @@
   <ItemGroup>
      <Compile Include="Assets\@Scripts\Managers\Contents\GameManager.cs" />
      <Compile Include="Assets\@Scripts\Managers\Contents\PoolManager.cs" />
+     <Compile Include="Assets\@Scripts\Controllers\BaseController.cs" />
      <Compile Include="Assets\@Scripts\Controllers\PlayerController.cs" />
      <Compile Include="Assets\@Scripts\Utils\Utils.cs" />
      <Compile Include="Assets\@Scripts\Managers\Core\UIManager.cs" />
      <Compile Include="Assets\@Scripts\Managers\Managers.cs" />
+     <Compile Include="Assets\@Scripts\Controllers\ProjectileController.cs" />
      <Compile Include="Assets\@Scripts\Managers\Core\DataManager.cs" />
      <Compile Include="Assets\@Scripts\Managers\Contents\ObjectManager.cs" />
      <Compile Include="Assets\@Scripts\Controllers\CameraController.cs" />
      <Compile Include="Assets\@Scripts\Managers\Core\SceneManagerEx.cs" />
+     <Compile Include="Assets\@Scripts\Controllers\CreatureController.cs" />
      <Compile Include="Assets\@Scripts\Managers\Core\SoundManager.cs" />
      <Compile Include="Assets\@Scripts\Utils\Define.cs" />
      <Compile Include="Assets\@Scripts\UI\Joystick\UI_Joystick.cs" />
      <Compile Include="Assets\@Scripts\Managers\Core\ResourceManager.cs" />
+     <Compile Include="Assets\@Scripts\Controllers\MonsterController.cs" />
      <Compile Include="Assets\@Scripts\Scenes\GameScene.cs" />
-     <Compile Include="Assets\@Scripts\Controllers\BaseController.cs" />
-     <Compile Include="Assets\@Scripts\Controllers\CreatureController.cs" />
-     <Compile Include="Assets\@Scripts\Controllers\MonsterContorller.cs" />
-     <Compile Include="Assets\@Scripts\Controllers\ProjectileController.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\@Resources\Sprites\Map" />
      <Folder Include="Assets\@Scripts\Managers\Core" />
@@ -89,6 +89,7 @@
      <Folder Include="Assets\@Scripts" />
      <Folder Include="Assets\@Scripts\UI" />
      <Folder Include="Assets\@Resources\Sprites\UI\Joystick" />
+     <Folder Include="Assets\@Resources\Physics" />
      <Folder Include="Assets\@Scripts\Controllers" />
      <Folder Include="Assets\@Resources\Sprites\Item" />
      <Folder Include="Assets\@Resources\Prefabs\Creature" />

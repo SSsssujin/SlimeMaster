@@ -33,17 +33,21 @@ public class GameScene : MonoBehaviour
 
     void StartLoaded()
     {
-        var player = Managers.Resource.Instantiate("Slime_01.prefab");
-        player.AddComponent<PlayerController>();
+        var player = Managers.Object.Spawn<PlayerController>();
 
-        var snake = Managers.Resource.Instantiate("Snake_01.prefab");
-        var goblin = Managers.Resource.Instantiate("Goblin_01.prefab");
+        for (int i = 0; i < 10; i++)
+        {
+            MonsterController mc = Managers.Object.Spawn<MonsterController>(Random.Range(0, 2));
+            mc.transform.position = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+        }
+
         var joystick = Managers.Resource.Instantiate("UI_Joystick.prefab");
         joystick.name = "@UI_Joystick";
 
         var map = Managers.Resource.Instantiate("Map.prefab");
         map.name = "@Map";
-        Camera.main.GetComponent<CameraController>().Target = player;
+        
+        Camera.main.GetComponent<CameraController>().Target = player.gameObject;
     }
 
     void Update()

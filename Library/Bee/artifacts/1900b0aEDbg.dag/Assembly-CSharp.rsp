@@ -388,7 +388,7 @@
 "Assets/@Scripts/Controllers/BaseController.cs"
 "Assets/@Scripts/Controllers/CameraController.cs"
 "Assets/@Scripts/Controllers/CreatureController.cs"
-"Assets/@Scripts/Controllers/MonsterContorller.cs"
+"Assets/@Scripts/Controllers/MonsterController.cs"
 "Assets/@Scripts/Controllers/PlayerController.cs"
 "Assets/@Scripts/Controllers/ProjectileController.cs"
 "Assets/@Scripts/Managers/Contents/GameManager.cs"

@@ -16,4 +16,12 @@ public class Define
         Bgm,
         Effect,
     }
+
+    public enum ObjectType
+    {
+        Player,
+        Monster,
+        Projectile,
+        Env,
+    }
 }

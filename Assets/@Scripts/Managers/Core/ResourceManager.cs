@@ -17,7 +17,7 @@ public class ResourceManager
 
         return null;
     }
-    
+
     public GameObject Instantiate(string key, Transform parent = null, bool pooling = false)
     {
         GameObject prefab = Load<GameObject>($"{key}");
@@ -25,6 +25,10 @@ public class ResourceManager
         {
             Debug.Log($"Failed to load prefab : {key}");
             return null;
+        }
+
+        if (pooling)
+        {
         }
 
         GameObject go = Object.Instantiate(prefab, parent);
@@ -39,7 +43,7 @@ public class ResourceManager
 
         Object.Destroy(go);
     }
-    
+
     public void LoadAsync<T>(string key, Action<T> callback = null) where T : UnityEngine.Object
     {
         // 캐시 확인
@@ -58,7 +62,7 @@ public class ResourceManager
             callback.Invoke(op.Result);
         };
     }
-    
+
     public void LoadAllAsync<T>(string label, Action<string, int, int> callback) where T : UnityEngine.Object
     {
         // List로 가지고 오는 건가봄.
