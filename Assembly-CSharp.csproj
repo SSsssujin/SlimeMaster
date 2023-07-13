@@ -56,6 +56,10 @@
      <Compile Include="Assets\@Scripts\UI\Joystick\UI_Joystick.cs" />
      <Compile Include="Assets\@Scripts\Managers\Core\ResourceManager.cs" />
      <Compile Include="Assets\@Scripts\Scenes\GameScene.cs" />
+     <Compile Include="Assets\@Scripts\Controllers\BaseController.cs" />
+     <Compile Include="Assets\@Scripts\Controllers\CreatureController.cs" />
+     <Compile Include="Assets\@Scripts\Controllers\MonsterContorller.cs" />
+     <Compile Include="Assets\@Scripts\Controllers\ProjectileController.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\@Resources\Sprites\Map" />
      <Folder Include="Assets\@Scripts\Managers\Core" />

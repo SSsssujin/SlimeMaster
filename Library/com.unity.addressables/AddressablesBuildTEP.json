@@ -1,9 +1,9 @@
 {
-"Date": "2023-07-08 오전 1:23:38",
+"Date": "2023-07-13 오후 10:14:15",
 "UnityVersion": "2021.3.19f1",
 "com.unity.scriptablebuildpipeline": "1.20.1",
 "com.unity.addressables": "1.19.19",
 "traceEvents": [
-{"name": "Building Use Asset Database (fastest)", "ph": "X", "dur": 1063.8, "tid": 1, "ts": 6729, "pid": 1}
+{"name": "Building Use Asset Database (fastest)", "ph": "X", "dur": 961.1, "tid": 1, "ts": 5523, "pid": 1}
 ]
 }
