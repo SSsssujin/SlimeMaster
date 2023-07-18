@@ -51,6 +51,13 @@ public class MonsterController : CreatureController
         if (target == null)
             return;
         
+        // 오브젝트풀로 오브젝트 관리하다보면
+        // 해당 물체를 SetActive(false) 처리했지만 실제로는 삭제된 게 아니라서
+        // null 처리가 되지 않을 수도 있다.
+        // 따라서 다음과 같은 코드로 예외처리 해줘야 할 수도 있음.
+        // if (!target.isActiveAndEnabled)
+        //     return;
+        
         if (_coDotDamage != null)
             StopCoroutine(_coDotDamage);
 
@@ -77,6 +84,9 @@ public class MonsterController : CreatureController
             StopCoroutine(_coDotDamage);
 
         _coDotDamage = null;
+        
+        // 죽을 때 보석 스폰
+        Managers.Object.Spawn<GemController>(transform.position);
         
         Managers.Object.Despawn(this);
     }

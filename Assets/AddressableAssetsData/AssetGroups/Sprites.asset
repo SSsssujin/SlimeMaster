@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Sprites
+  m_EditorClassIdentifier: 
+  m_GroupName: Sprites
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 4ddb1ae3bc0b9f548b6c3fc868a6dec7
+  m_SerializeEntries:
+  - m_GUID: 59d3ff30a7793db4bb85e4afa4e906ac
+    m_Address: EXPGem_03.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: bf52d0a4f735cd54eb4d5850f5c0e08e
+    m_Address: EXPGem_02.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: c853bcc7be52c664dad56deb0c974ae4
+    m_Address: EXPGem_01.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: b851e2edaf8e5274e93155201b4d7282
+    m_Address: PlayerData.xml
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 499442d97d4df8a4b8eb1b7ad89ee55c, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4a3043be3ed9bdd44a3c2930a8e39ec9, type: 2}
+    - {fileID: 11400000, guid: 43e67134858d1ed45bc0b99103245b33, type: 2}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6270711575352570076}
   - component: {fileID: 6270711575352570077}
   - component: {fileID: -8124903240445027067}
-  - component: {fileID: 7682917217366670960}
+  - component: {fileID: 8354934386234107}
   m_Layer: 0
   m_Name: Snake_01
   m_TagString: Untagged
@@ -128,8 +128,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &7682917217366670960
-BoxCollider2D:
+--- !u!58 &8354934386234107
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -142,15 +142,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 0.83}
-    newSize: {x: 1.28, y: 0.83}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.94, y: 0.83}
-  m_EdgeRadius: 0
+  m_Radius: 0.4

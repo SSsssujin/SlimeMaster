@@ -16,7 +16,7 @@ public class BaseController : MonoBehaviour
     private bool _init = false;
     
     // 자식 오브젝트에서 얘를 상속받아서 초기화를 진행
-    // 부모클래스 Awake에서 실행, 자식이 상속받음 -> Start 메소드를 매번 호출하지 않아도 됨
+    // 부모클래스 Awake에서 실행, 자식이 상속받음 -> 초기화용 Start/Awake 메소드를 매번 호출하지 않아도 됨
     public virtual bool Init()
     {
         if (_init)
@@ -26,6 +26,11 @@ public class BaseController : MonoBehaviour
     }
 
     void Update()
+    {
+        UpdateController();
+    }
+
+    public virtual void UpdateController()
     {
         
     }

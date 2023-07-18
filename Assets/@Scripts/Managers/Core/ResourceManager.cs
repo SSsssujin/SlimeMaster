@@ -29,6 +29,7 @@ public class ResourceManager
 
         if (pooling)
         {
+            return Managers.Pool.Pop(prefab);
         }
 
         GameObject go = Object.Instantiate(prefab, parent);
@@ -39,6 +40,9 @@ public class ResourceManager
     public void Destroy(GameObject go)
     {
         if (go == null)
+            return;
+
+        if (Managers.Pool.Push(go))
             return;
 
         Object.Destroy(go);
@@ -53,9 +57,13 @@ public class ResourceManager
             return;
         }
 
+        string loadKey = key;
+        if (key.Contains(".sprite"))
+            loadKey = $"{key}[{key.Replace(".sprite", "")}]";
+
         // 리소스 비동기 로딩 시작
         // 아마 하나만 가지고 오는 건가봄.
-        var asyncOperation = Addressables.LoadAssetAsync<T>(key);
+        var asyncOperation = Addressables.LoadAssetAsync<T>(loadKey);
         asyncOperation.Completed += (op) =>
         {
             _resources.Add(key, op.Result);
