@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 
 public class GameScene : MonoBehaviour
@@ -10,6 +12,13 @@ public class GameScene : MonoBehaviour
     private GameObject _snake;
     private GameObject _slime;
     private GameObject _goblin;
+    
+    // 다른 클래스에 있는 게 더 좋을지도?
+    private int _collectedGemCount = 0;
+    private int _remainingTotalGemCount = 10;
+    
+    private SpawningPool _spawningPool;
+    private Define.StageType _stageType;
 
     void Start()
     {
@@ -20,7 +29,7 @@ public class GameScene : MonoBehaviour
         // 코드 효율성 Up, 어려워짐
         Managers.Resource.LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
-            Debug.Log($"{key} {count}/{totalCount}");
+            //Debug.Log($"{key} {count}/{totalCount}");
 
             // 로드 끝나면
             if (count == totalCount)
@@ -31,38 +40,92 @@ public class GameScene : MonoBehaviour
         // 윗부분 리팩토링 필요.
     }
 
-    private SpawningPool _spawningPool;
+    public Define.StageType StageType
+    {
+        get => _stageType;
+        set
+        {
+            _stageType = value;
+            if (_spawningPool != null)
+            {
+                switch (value)
+                {
+                    case Define.StageType.Normal:
+                        _spawningPool.Stopped = false;
+                        break;
+                    case Define.StageType.Boss:
+                        _spawningPool.Stopped = true;
+                        break;
+                }
+            }
+        }
+    }
 
     void StartLoaded()
     {
+        Managers.Data.Init();
+        
+        Managers.UI.ShowSceneUI<UI_GameScene>();
+        
         _spawningPool = gameObject.AddComponent<SpawningPool>();
 
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero);
 
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    MonsterController mc = Managers.Object.Spawn<MonsterController>(Random.Range(0, 2));
-        //    mc.transform.position = new Vector2(Random.Range(-50, 50), Random.Range(-50, 50));
-        //}
-
         var joystick = Managers.Resource.Instantiate("UI_Joystick.prefab");
         joystick.name = "@UI_Joystick";
 
-        var map = Managers.Resource.Instantiate("Map.prefab");
+        var map = Managers.Resource.Instantiate("Map_01.prefab");
         map.name = "@Map";
 
         Camera.main.GetComponent<CameraController>().Target = player.gameObject;
-        
-        // Data Test
-        Managers.Data.Init();
 
         foreach (var playerData in Managers.Data.PlayerDic.Values)
         {
-            Debug.Log($"Lev : {playerData.level}, Hp : {playerData.maxHp}");
+            //Debug.Log($"Lev : {playerData.level}, Hp : {playerData.maxHp}");
+        }
+
+        Managers.Game.OnGemCountChanged -= HandleOnGemCountChanged;
+        Managers.Game.OnGemCountChanged += HandleOnGemCountChanged;
+
+        Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
+        Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;
+    }
+  
+    public void HandleOnGemCountChanged(int gemCount)
+    {
+        _collectedGemCount++;
+
+        if (_collectedGemCount == _remainingTotalGemCount)
+        {
+            Managers.UI.ShowPopup<UI_SkillSelectPopup>();
+            _collectedGemCount = 0;
+            _remainingTotalGemCount *= 2;
+        }
+        
+        Managers.UI.GetSceneUI<UI_GameScene>()
+            .SetGemCountRatio((float)_collectedGemCount / _remainingTotalGemCount);
+    }
+
+    public void HandleOnKillCountChanged(int killCount)
+    {
+        Managers.UI.GetSceneUI<UI_GameScene>().SetKillCount(killCount);
+
+        if (killCount == 5)
+        {
+            // Boss
+            StageType = Define.StageType.Boss;
+            
+            Managers.Object.DespawnAllMonsters();
+
+            Vector2 spawnPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 5, 10);
+
+            Managers.Object.Spawn<MonsterController>(spawnPos, Define.BOSS_ID);
         }
     }
 
-    void Update()
+    private void OnDestroy()
     {
+        if (Managers.Game != null)
+            Managers.Game.OnGemCountChanged -= HandleOnGemCountChanged;
     }
 }

@@ -2,21 +2,80 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class MonsterController : CreatureController
 {
+    private class MonsterData
+    {
+        
+        public int Hp;
+        
+    }
+    
+    private MonsterData _monsterData;
+    private Define.CreatureState _creatureState = Define.CreatureState.Moving;
+
+    public virtual Define.CreatureState CreatureState
+    {
+        get => _creatureState;
+        set
+        {
+            _creatureState = value;
+            UpdateAnimation();
+        }
+    }
+
+    protected Animator _animator;
+
+    public virtual void UpdateAnimation()
+    {
+        
+    }
+
+    public override void UpdateController()
+    {
+        base.UpdateController();
+
+        switch (CreatureState)
+        {
+            case Define.CreatureState.Idle:
+                UpdateIdle();
+                break;
+            case Define.CreatureState.Moving:
+                UpdateMoving();
+                break;
+            case Define.CreatureState.Skill:
+                UpdateSkill();
+                break;
+            case Define.CreatureState.Dead:
+                UpdateDead();
+                break;
+        }
+    }
+
+    protected virtual void UpdateIdle() { }
+    protected virtual void UpdateSkill() { }
+    protected virtual void UpdateMoving() { }
+    protected virtual void UpdateDead() { }
+
     public override bool Init()
     {
         if (base.Init())
             return false;
-        
+
+        _animator = GetComponent<Animator>();
         ObjectType = Define.ObjectType.Monster;
+        CreatureState = Define.CreatureState.Moving;
 
         return true;
     }
 
     void FixedUpdate()
     {
+        if (CreatureState != Define.CreatureState.Moving) 
+            return;
+        
         PlayerController pc = Managers.Object.Player;
 
         if (pc == null)
@@ -27,15 +86,15 @@ public class MonsterController : CreatureController
         Vector3 newPos = transform.position + dir.normalized * Time.deltaTime * _speed;
         GetComponent<Rigidbody2D>().MovePosition(newPos);
         
-        // 방향에 따라 sprite 좌우 뒤ㅣㅂ기
+        // 방향에 따라 sprite 좌우 뒤집기
         GetComponent<SpriteRenderer>().flipX = dir.x > 0;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         PlayerController target = other.gameObject.GetComponent<PlayerController>();
-
-        if (target == null)
+        
+        if (!target.IsValid() || !this.IsValid())
             return;
         
         if (_coDotDamage != null)
@@ -48,7 +107,7 @@ public class MonsterController : CreatureController
     {
         PlayerController target = other.gameObject.GetComponent<PlayerController>();
 
-        if (target == null)
+        if (!target.IsValid() || !this.IsValid())
             return;
         
         // 오브젝트풀로 오브젝트 관리하다보면
@@ -79,6 +138,8 @@ public class MonsterController : CreatureController
     protected override void OnDead()
     {
         base.OnDead();
+
+        Managers.Game.KillCount++;
         
         if (_coDotDamage != null)
             StopCoroutine(_coDotDamage);
@@ -86,7 +147,7 @@ public class MonsterController : CreatureController
         _coDotDamage = null;
         
         // 죽을 때 보석 스폰
-        Managers.Object.Spawn<GemController>(transform.position);
+        GemController gc =  Managers.Object.Spawn<GemController>(transform.position);
         
         Managers.Object.Despawn(this);
     }

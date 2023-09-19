@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +37,15 @@ class Pool
 
     public void Push(GameObject go)
     {
-        _pool.Release(go);
+        try
+        {
+            _pool.Release(go);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(go.name);
+            go.name = "Error Obj";
+        }
     }
 
     GameObject OnCreate()

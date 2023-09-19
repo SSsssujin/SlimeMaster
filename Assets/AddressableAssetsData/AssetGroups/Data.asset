@@ -16,7 +16,17 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: b4145b1f9c24d6d46afea5dc3870782e
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 4331c5e2e616cca4fa07b406651a8d8f
+    m_Address: SkillData.xml
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+  - m_GUID: b851e2edaf8e5274e93155201b4d7282
+    m_Address: PlayerData.xml
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 499442d97d4df8a4b8eb1b7ad89ee55c, type: 2}
   m_SchemaSet:
